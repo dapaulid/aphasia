@@ -1,0 +1,24 @@
+* { box-sizing:border-box; }
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600);
+
+body, .main {
+  background:#aaa;
+  font:300 15px/24px "Open Sans", sans-serif;
+  color:#bbb;
+  user-select:none;
+  text-shadow:0 0 1px #aaa;
+  display:flex;
+  flex-direction: column;
+}
+
+h1 { font-size:5em; line-height:1.5; }
+
+textarea {
+  font-size: 32px;
+}
+
+textarea:read-only {
+  background:#bbb;
+}
+
