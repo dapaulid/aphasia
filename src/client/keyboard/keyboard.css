@@ -7,6 +7,9 @@
 	--animate-delay: 1s;
 	--animate-repeat: 1;
 	display: flex;
+	font:300 15px/24px "Open Sans", sans-serif;
+	user-select:none;
+	text-shadow:0 0 1px #aaa;
   }
 
   .keyboard {
