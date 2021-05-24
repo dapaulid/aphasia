@@ -30,10 +30,9 @@ export class WebComponent extends HTMLElement {
 
 	constructor() {
 		super();
-		this.useShadow = true;
+		this.useShadow = true; // for testing purposes
 		if (this.useShadow) {
-			this.attachShadow({mode: 'open'});
-			this.dom = this.shadowRoot;
+			this.dom = this.attachShadow({mode: 'open'});
 		} else {
 			this.dom = this;
 		}
@@ -62,7 +61,7 @@ export class WebComponent extends HTMLElement {
 			if (this.ui[e.id] && !elementName.includes('-')) {
 				// custom element wins
 				continue;
-			}
+			}			
 			this.ui[e.id] = e;
 		}
 		// notify subclass		

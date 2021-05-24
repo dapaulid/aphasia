@@ -1,6 +1,6 @@
 * { box-sizing:border-box; }
 
-body, .main {
+.main {
   background:#aaa;
   font:300 15px/24px "Open Sans", sans-serif;
   color:#bbb;
