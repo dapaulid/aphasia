@@ -1,87 +1,53 @@
-const textout = document.getElementById("textout");
-const textinp = document.getElementById("textinp");
-const keyboard = document.getElementById("keyboard");
+/* jshint esversion: 8 */
+import { WebComponent } from '../lib/webcomponent.js';
 
-const hint_timer = new Timer(hint, 5000);
+import '../keyboard/keyboard.js';
 
-textout.onkeypress = (e) => {
-	e.preventDefault();
-	type(e.key);
-}
-textout.focus();
+class Main extends WebComponent {
 
-function type(str) {
-	hint_timer.restart();
-	const text = textout.value + str;
-	if (!textinp.value.startsWith(text)) {
-		incorrect(keymap[str]);
-		return;
+	initialize() {
+
+		this.hint_timer = new Timer(this.hint.bind(this), 5000);
+		this.ui.keyboard.addEventListener('input', e => this.type(e.detail));
+
+		this.ui.textout.onkeypress = (e) => {
+			e.preventDefault();
+			this.type(e.key);
+		};
+		this.ui.textout.focus();
+		
+		this.exercise("bitte tippe diesen text ab!");		
 	}
-	correct(keymap[str]);
-	textout.value = text;
-}
 
-const keymap = {};
-document.querySelectorAll('.key').forEach((element) => {
-	keymap[element.textContent] = element;
-	element.onclick = () => {
-		type(element.textContent);
-	};
-});
-
-function exercise(text) {
-	textinp.value = text;
-	textout.value = "";
-}
-
-function element_from_key(key) {
-	const element = keymap[key];
-	if (!element) {
-		throw "invalid key: " + key;
+	type(str) {
+		this.hint_timer.restart();
+		const text = this.ui.textout.value + str;
+		if (!this.ui.textinp.value.startsWith(text)) {
+			this.ui.keyboard.incorrect(str);
+			return;
+		}
+		this.ui.keyboard.correct(str);
+		this.ui.textout.value = text;
 	}
-	return element;
-}
-
-function animate(element, state, animation)
-{
-	element = element || keyboard;
-	element.classList.add(state);
-	animateCSS(element, animation).then(() => {
-		element.classList.remove(state);
-	});
-}
-
-function highlight(element) {
-	animate(element, "highlight", "heartBeat");
-}
-
-function correct(element) {
-	animate(element, "correct", "bounce");
-}
-
-function incorrect(element) {
-	animate(element, "incorrect", "wobble");
-}
-
-
-function hint() {
-	const expectedText = textinp.value;
-	const actualText = textout.value;
-	if (expectedText == actualText) {
-		// all good
-		return;
+	
+	exercise(text) {
+		this.ui.textinp.value = text;
+		this.ui.textout.value = "";
 	}
-	if (!expectedText.startsWith(actualText)) {
-
-	}
-	const i = textout.value.length;
-	let next_key = keymap[textinp.value[i]];
-	if (next_key) {
-		highlight(next_key);
-	} else {
-		console.error("failed to determine next key");
-	}
+	
+	hint() {
+		const expectedText = this.ui.textinp.value;
+		const actualText = this.ui.textout.value;
+		if (expectedText == actualText) {
+			// all good
+			return;
+		}
+		if (!expectedText.startsWith(actualText)) {
+	
+		}
+		const i = this.ui.textout.value.length;
+		this.ui.keyboard.highlight(this.ui.textinp.value[i]);
+	}	
 }
 
-exercise("bitte tippe diesen text ab!");
-
+WebComponent.define(Main, import.meta);

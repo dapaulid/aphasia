@@ -1,6 +1,6 @@
-const animateCSS = (element, animation, prefix = 'animate__') =>
+function animateCSS(element, animation, prefix = 'animate__') {
   // We create a Promise and return it
-  new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const animationName = `${prefix}${animation}`;
 
     element.classList.add(`${prefix}animated`, animationName);
@@ -14,6 +14,7 @@ const animateCSS = (element, animation, prefix = 'animate__') =>
 
     element.addEventListener('animationend', handleAnimationEnd, {once: true});
   });
+}
 
 class Timer {
   constructor(handler, delay) {

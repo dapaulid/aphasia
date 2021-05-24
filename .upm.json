@@ -1,0 +1,8 @@
+{
+  "deps": {
+    "src/client/lib/animate.min.css": {
+      "url": "https://raw.githubusercontent.com/animate-css/animate.css/main/animate.min.css",
+      "version": "4.1.1"
+    }
+  }
+}

@@ -1,3 +1,13 @@
+@import "lib/animate.min.css";
+/* TODO not working? */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600);
+
+:host {
+	--animate-duration: 1s;
+	--animate-delay: 1s;
+	--animate-repeat: 1;
+  }
+
   .keyboard {
 	margin:30px auto;
 	width:90%;
